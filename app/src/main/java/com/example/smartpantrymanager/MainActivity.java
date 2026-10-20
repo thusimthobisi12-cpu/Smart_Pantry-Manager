@@ -16,6 +16,8 @@ import com.example.smartpantrymanager.database.AppDatabase;
 import com.example.smartpantrymanager.database.RecipeSeeder;
 import com.example.smartpantrymanager.model.PantryItem;
 import com.example.smartpantrymanager.ui.PantryAdapter;
+import android.content.Intent;
+import com.example.smartpantrymanager.ui.AddEditActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Tapping a row will open the edit screen (we build it in the next step).
         adapter = new PantryAdapter(new ArrayList<>(), item -> {
+            Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
+            intent.putExtra(AddEditActivity.EXTRA_ITEM_ID, item.id);
+            startActivity(intent);
         });
+
+        findViewById(R.id.fabAdd).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AddEditActivity.class)));
+
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
