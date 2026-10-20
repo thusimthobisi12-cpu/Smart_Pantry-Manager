@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerPantry);
         emptyText = findViewById(R.id.textEmpty);
 
-        // Tapping a row will open the edit screen (we build it in the next step).
+
         adapter = new PantryAdapter(new ArrayList<>(), item -> {
             Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
             intent.putExtra(AddEditActivity.EXTRA_ITEM_ID, item.id);
@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.fabAdd).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, AddEditActivity.class)));
+
+        findViewById(R.id.textTitle).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, com.example.smartpantrymanager.ui.SuggestedRecipesActivity.class)));
 
 
 
