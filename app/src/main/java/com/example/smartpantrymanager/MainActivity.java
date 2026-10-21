@@ -18,6 +18,9 @@ import com.example.smartpantrymanager.model.PantryItem;
 import com.example.smartpantrymanager.ui.PantryAdapter;
 import android.content.Intent;
 import com.example.smartpantrymanager.ui.AddEditActivity;
+import com.example.smartpantrymanager.ui.SettingActivity;
+import com.example.smartpantrymanager.ui.SuggestedRecipesActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +60,23 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.fabAdd).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, AddEditActivity.class)));
 
-        findViewById(R.id.textTitle).setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, com.example.smartpantrymanager.ui.SuggestedRecipesActivity.class)));
-
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        BottomNavigationView nav = findViewById(R.id.bottomNav);
+        nav.setSelectedItemId(R.id.nav_pantry);
+        nav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_recipes) {
+                startActivity(new Intent(this, SuggestedRecipesActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            } else if (id == R.id.nav_settings) {
+                startActivity(new Intent(this, SettingActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+            }
+            return true;
+        });
     }
 
 
